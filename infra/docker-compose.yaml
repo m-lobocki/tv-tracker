@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres
+    ports:
+      - "5430:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: tv-tracker
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@tv-tracker.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_REPLACE_SERVERS_ON_STARTUP: "True"
+    volumes:
+      - ./pgadmin/servers.json:/pgadmin4/servers.json:ro 
+    depends_on:
+      - db
